@@ -11,8 +11,6 @@ import {
 } from "@/components/ui/table";
 import { FoodDayType, LimitNutrientsType, TotalType } from "..";
 import { EditDialog } from "./editDialog";
-import { Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { TrashDialog } from "./trashDialog";
 
 interface Props {

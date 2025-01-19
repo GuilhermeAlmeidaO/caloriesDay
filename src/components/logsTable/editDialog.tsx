@@ -55,7 +55,6 @@ export function EditDialog({ foodData, listFood, updateListFoodFunc }: Prop) {
 			values[key as keyof Inputs] = Number(value) as never;
 		});
 
-		const foodToUpdate = listFood.filter((value) => value.id === foodData.id);
 		const id = foodData.id;
 		const listFoodWithoutFoodToUpdate = listFood.filter(
 			(value) => value.id !== foodData.id
