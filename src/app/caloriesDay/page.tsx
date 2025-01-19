@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Index } from "./components";
-import { StartModule } from "./components/startModule";
+import { Index } from "../../components";
+import { StartModule } from "../../components/startModule";
 
 export default function CaloriesDay() {
 	const [isThereLs, setIsThereLs] = useState(false);
