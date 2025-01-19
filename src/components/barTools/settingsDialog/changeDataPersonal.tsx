@@ -80,7 +80,7 @@ export function ChangeDataPersonal() {
 						</div>
 					</DialogDescription>
 				</DialogHeader>
-				<DialogFooter>
+				<DialogFooter className="flex justify-end w-full">
 					<Button onClick={changeData}>Mudar</Button>
 					<Button variant={"destructive"} onClick={handleClose}>
 						Cancelar

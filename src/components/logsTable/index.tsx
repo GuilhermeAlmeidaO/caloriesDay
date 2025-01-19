@@ -91,7 +91,7 @@ export function LogsTable({
 						<TableHead className="py-4 font-bold">Proteinas (g)</TableHead>
 						<TableHead className="py-4 font-bold">Carboidratos (g)</TableHead>
 						<TableHead className="py-4 font-bold">Gorduras (g)</TableHead>
-						<TableHead className="py-4 font-bold text-center">Edite</TableHead>
+						<TableHead className="py-4 font-bold text-center">Editar</TableHead>
 						<TableHead className="py-4 font-bold text-center">
 							Excluir
 						</TableHead>

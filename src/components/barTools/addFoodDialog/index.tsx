@@ -21,6 +21,8 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import { AddFoodSaved } from "./addFoodSaved";
+import { FoodDayType } from "@/components";
 
 interface Inputs {
 	name: string;
@@ -46,11 +48,24 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 		if (!isOpen) reset();
 	}, [isOpen, reset]);
 
+	const [foodSaved, setFoodSaved] = useState<FoodDayType[]>([]);
+
+	const handleGetFoodSaved = () => {
+		const ls = localStorage.getItem("foods_saved");
+		if (!ls) return;
+		setFoodSaved(JSON.parse(ls));
+	};
+
+	useEffect(() => {
+		handleGetFoodSaved();
+	}, []);
+
 	const submit = (values: Inputs, mode: "add" | "save") => {
 		Object.entries(values).map(([key, value]) => {
 			if (isNaN(Number(value))) return;
 			values[key as keyof Inputs] = Number(value) as never;
 		});
+		values.name = values.name.toString();
 
 		const valuesWithId = { ...values, id: new Date().getTime() };
 		if (mode === "add") {
@@ -66,19 +81,16 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 			toast.success("Comida adicionada");
 			updateListFoodFunc();
 		} else if (mode === "save") {
-			const ls = localStorage.getItem("foods_saved");
-			if (!ls) {
-				localStorage.setItem(
-					"foods_saved",
-					JSON.stringify([{ ...valuesWithId }])
-				);
+			if (foodSaved.length === 0) {
+				localStorage.setItem("foods_saved", JSON.stringify([valuesWithId]));
 			} else {
 				console.log("saved");
 				localStorage.setItem(
 					"foods_saved",
-					JSON.stringify([...JSON.parse(ls), { ...valuesWithId }])
+					JSON.stringify([...foodSaved, valuesWithId])
 				);
 			}
+			handleGetFoodSaved();
 			toast.success("Comida salva");
 		}
 	};
@@ -175,24 +187,35 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							onFocus={(e) => e.target.select()}
 						/>
 					</label>
-					<DialogFooter className="flex items-end w-full col-span-2 justify-center">
-						<Button
-							variant={"outline"}
-							type="button"
-							onClick={handleSubmit((data) => submit(data, "save"))}
-						>
-							Salvar
-						</Button>
-						<Button
-							variant={"outline"}
-							type="button"
-							onClick={handleSubmit((data) => submit(data, "add"))}
-						>
-							Adicionar
-						</Button>
-						<Button variant={"destructive"} type="button" onClick={handleClose}>
-							Fechar
-						</Button>
+					<DialogFooter className="flex w-full col-span-2 justify-between items-center mt-2">
+						<AddFoodSaved
+							updateListFoodFunc={updateListFoodFunc}
+							foodSaved={foodSaved}
+							updateListFoodSavedFunc={handleGetFoodSaved}
+						/>
+						<div className="flex gap-2">
+							<Button
+								variant={"outline"}
+								type="button"
+								onClick={handleSubmit((data) => submit(data, "save"))}
+							>
+								Salvar
+							</Button>
+							<Button
+								variant={"outline"}
+								type="button"
+								onClick={handleSubmit((data) => submit(data, "add"))}
+							>
+								Adicionar
+							</Button>
+							<Button
+								variant={"destructive"}
+								type="button"
+								onClick={handleClose}
+							>
+								Fechar
+							</Button>
+						</div>
 					</DialogFooter>
 				</form>
 			</DialogContent>

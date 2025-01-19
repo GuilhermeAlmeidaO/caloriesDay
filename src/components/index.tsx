@@ -67,11 +67,11 @@ export function Index() {
 										{value[0] === "kcal"
 											? "Calorias:"
 											: value[0] === "protein"
-											? "Proteina (g):"
+											? "Proteinas (g):"
 											: value[0] === "carb"
-											? "Carboidrato (g):"
+											? "Carboidratos (g):"
 											: value[0] === "fat"
-											? "Gordura (g):"
+											? "Gorduras (g):"
 											: ""}
 									</p>
 									<div className="w-1/2 border-[1px] cursor-pointer border-neutral-400 rounded-sm py-1 pl-2 pr-5">
@@ -94,11 +94,11 @@ export function Index() {
 										value[0] === "kcal"
 											? "Calorias"
 											: value[0] === "protein"
-											? "Proteina"
+											? "Proteinas"
 											: value[0] === "carb"
-											? "Carboidrato"
+											? "Carboidratos"
 											: value[0] === "fat"
-											? "Gordura"
+											? "Gorduras"
 											: ""
 									}
 									key={index}
