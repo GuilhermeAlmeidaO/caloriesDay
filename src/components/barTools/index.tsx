@@ -1,6 +1,6 @@
-import { Share2 } from "lucide-react";
 import { SettingsDialog } from "./settingsDialog";
 import { AddFoodDialog } from "./addFoodDialog";
+import { ShareDialog } from "./shareDialog";
 
 interface Props {
 	updateListFoodFunc: () => void;
@@ -13,9 +13,7 @@ export function BarTools({ updateListFoodFunc }: Props) {
 			<div className="-translate-y-2">
 				<AddFoodDialog updateListFoodFunc={updateListFoodFunc} />
 			</div>
-			<div className="p-3 rounded-full bg-black/50 text-white cursor-pointer hover:bg-black/70">
-				<Share2 />
-			</div>
+			<ShareDialog />
 		</div>
 	);
 }

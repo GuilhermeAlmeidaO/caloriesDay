@@ -74,7 +74,7 @@ export function Index() {
 											? "Gorduras (g):"
 											: ""}
 									</p>
-									<div className="w-1/2 border-[1px] cursor-pointer border-neutral-400 rounded-sm py-1 pl-2 pr-5">
+									<div className="w-1/2 border-[1px] cursor-pointer border-neutral-400 rounded-sm py-1 pl-2 pr-5 hover:bg-black/30">
 										{value[1].toFixed(2)}
 									</div>
 								</div>

@@ -12,6 +12,8 @@ import { FoodDayType } from "../../..";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { TrashDialog } from "./trashDialog";
 
 interface Props {
 	foodData: FoodDayType;
@@ -68,6 +70,7 @@ export function EditFoodDialog({
 		);
 
 		updateListFoodSavedFunc();
+		toast.success("Comida editada com sucesso");
 		handleClose();
 	};
 
@@ -135,7 +138,6 @@ export function EditFoodDialog({
 							onFocus={(e) => e.target.select()}
 						/>
 					</label>
-
 					<label
 						htmlFor="fatInputId"
 						className="cursor-pointer flex flex-col gap-3"
@@ -149,13 +151,24 @@ export function EditFoodDialog({
 							onFocus={(e) => e.target.select()}
 						/>
 					</label>
-					<DialogFooter className="w-full flex justify-end col-span-2">
-						<Button onClick={handleSubmit(submit)} type="button">
-							Salvar Mudanças
-						</Button>
-						<Button variant={"destructive"} onClick={handleClose} type="button">
-							Sair
-						</Button>
+					<DialogFooter className="w-full flex justify-between col-span-2">
+						<TrashDialog
+							updateListFoodSavedFunc={updateListFoodSavedFunc}
+							dataFoodSaved={foodData}
+							listFoodSaved={listFoodSaved}
+						/>
+						<div className="space-x-3">
+							<Button onClick={handleSubmit(submit)} type="button">
+								Salvar Mudanças
+							</Button>
+							<Button
+								variant={"destructive"}
+								onClick={handleClose}
+								type="button"
+							>
+								Sair
+							</Button>
+						</div>
 					</DialogFooter>
 				</form>
 			</DialogContent>
