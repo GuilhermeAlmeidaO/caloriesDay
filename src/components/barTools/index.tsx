@@ -8,7 +8,7 @@ interface Props {
 
 export function BarTools({ updateListFoodFunc }: Props) {
 	return (
-		<div className="bg-neutral-700 text-black flex items-center gap-5 rounded-t-lg px-5 mt-3">
+		<div className="bg-neutral-700 text-black flex items-center gap-5 rounded-t-lg px-5 py-4 mt-3 fixed bottom-0">
 			<SettingsDialog />
 			<div className="-translate-y-2">
 				<AddFoodDialog updateListFoodFunc={updateListFoodFunc} />

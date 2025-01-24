@@ -39,7 +39,7 @@ export function StartModule() {
 
 	return (
 		<div className="bg-neutral-950 min-h-[100dvh] text-white flex items-center justify-center">
-			<form className="w-2/6 space-y-5" onSubmit={handleSubmit(submit)}>
+			<form className="space-y-5" onSubmit={handleSubmit(submit)}>
 				<div className="flex flex-col gap-5 items-center justify-center">
 					<label htmlFor={"idInputKg"} className="flex flex-col gap-3 w-full">
 						<p>Peso</p>

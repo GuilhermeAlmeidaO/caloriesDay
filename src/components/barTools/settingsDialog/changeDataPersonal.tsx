@@ -61,7 +61,7 @@ export function ChangeDataPersonal() {
 							</p>
 							<Table>
 								<TableHeader>
-									<TableRow className="font-medium">
+									<TableRow>
 										<TableHead>Tamanho</TableHead>
 										<TableHead>Peso</TableHead>
 										<TableHead>Idade</TableHead>

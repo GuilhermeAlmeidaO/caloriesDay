@@ -11,6 +11,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pt-br">
+			<head>
+				<title>CaloriesDay</title>
+			</head>
 			<body>
 				<RecoilRoot>
 					<Toaster position="bottom-right" />

@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { AddFoodSaved } from "./addFoodSaved";
+import { useMediaQuery } from "react-responsive";
 import { FoodDayType } from "@/components";
 
 interface Inputs {
@@ -37,6 +38,7 @@ interface Props {
 }
 
 export function AddFoodDialog({ updateListFoodFunc }: Props) {
+	const isMaxSm = useMediaQuery({ query: "(max-width: 640px)" });
 	const { register, handleSubmit, reset } = useForm<Inputs>({
 		values: { carb: 0, fat: 0, kcal: 0, protein: 0, name: "" },
 	});
@@ -51,7 +53,7 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 	const [foodSaved, setFoodSaved] = useState<FoodDayType[]>([]);
 
 	const handleGetFoodSaved = () => {
-		const ls = localStorage.getItem("foods_saved");
+		const ls = localStorage.getItem("food_saved");
 		if (!ls) return;
 		setFoodSaved(JSON.parse(ls));
 	};
@@ -82,11 +84,11 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 			updateListFoodFunc();
 		} else if (mode === "save") {
 			if (foodSaved.length === 0) {
-				localStorage.setItem("foods_saved", JSON.stringify([valuesWithId]));
+				localStorage.setItem("food_saved", JSON.stringify([valuesWithId]));
 			} else {
 				console.log("saved");
 				localStorage.setItem(
-					"foods_saved",
+					"food_saved",
 					JSON.stringify([...foodSaved, valuesWithId])
 				);
 			}
@@ -173,7 +175,6 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							onFocus={(e) => e.target.select()}
 						/>
 					</label>
-
 					<label
 						htmlFor="fatInputId"
 						className="cursor-pointer flex flex-col gap-3"
@@ -187,34 +188,39 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							onFocus={(e) => e.target.select()}
 						/>
 					</label>
-					<DialogFooter className="flex w-full col-span-2 justify-between items-center mt-2">
-						<AddFoodSaved
-							updateListFoodFunc={updateListFoodFunc}
-							foodSaved={foodSaved}
-							updateListFoodSavedFunc={handleGetFoodSaved}
-						/>
-						<div className="flex gap-2">
-							<Button
-								variant={"outline"}
-								type="button"
-								onClick={handleSubmit((data) => submit(data, "save"))}
-							>
-								Salvar
-							</Button>
-							<Button
-								variant={"outline"}
-								type="button"
-								onClick={handleSubmit((data) => submit(data, "add"))}
-							>
-								Adicionar
-							</Button>
-							<Button
-								variant={"destructive"}
-								type="button"
-								onClick={handleClose}
-							>
-								Fechar
-							</Button>
+					<DialogFooter className="w-full col-span-2 flex max-sm:justify-end">
+						<div className="w-full flex justify-between items-center mt-2 max-sm:flex-col-reverse max-sm:items-end gap-2 max-sm:w-full">
+							<AddFoodSaved
+								updateListFoodFunc={updateListFoodFunc}
+								foodSaved={foodSaved}
+								updateListFoodSavedFunc={handleGetFoodSaved}
+							/>
+							<div className="flex gap-2 max-sm:w-full max-sm:flex-row-reverse">
+								<Button
+									variant={isMaxSm ? "secondary" : "outline"}
+									type="button"
+									onClick={handleSubmit((data) => submit(data, "save"))}
+									className="max-sm:w-1/2"
+								>
+									Salvar
+								</Button>
+								<Button
+									variant={isMaxSm ? "default" : "outline"}
+									type="button"
+									onClick={handleSubmit((data) => submit(data, "add"))}
+									className="max-sm:w-1/2"
+								>
+									Adicionar
+								</Button>
+								<Button
+									variant={"destructive"}
+									type="button"
+									onClick={handleClose}
+									className="max-sm:hidden"
+								>
+									Fechar
+								</Button>
+							</div>
 						</div>
 					</DialogFooter>
 				</form>

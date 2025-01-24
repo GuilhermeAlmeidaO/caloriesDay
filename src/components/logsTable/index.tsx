@@ -82,8 +82,8 @@ export function LogsTable({
 	}, [totals, shareTotalNutrients, limitNutrient]);
 
 	return (
-		<div className="mt-7 flex-grow overflow-auto relative">
-			<Table className=" text-base">
+		<div className="mt-7 flex-grow md:overflow-auto">
+			<Table className="text-base max-md:hidden">
 				<TableHeader>
 					<TableRow className="bg-neutral-800/25">
 						<TableHead className="py-4 font-bold">Item comida</TableHead>
@@ -146,6 +146,87 @@ export function LogsTable({
 					</TableRow>
 				</TableBody>
 			</Table>
+			<div className="space-y-4 md:hidden">
+				{foodDay.length === 0 && (
+					<div className="px-10">
+						<p className="text-center font-semibold">
+							Nenhuma comida salva no histórico hoje <br /> ╮(╯-╰)╭
+						</p>
+					</div>
+				)}
+				{foodDay.map((value, index) => {
+					return (
+						<table className="text-base flex px-10" key={index}>
+							<tbody className="w-full max-sm:text-sm">
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Item comida
+									</td>
+									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
+										{value.name}
+									</td>
+								</tr>
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Calorias
+									</td>
+									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
+										{value.kcal}
+									</td>
+								</tr>
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Proteinas (g)
+									</td>
+									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
+										{value.protein}
+									</td>
+								</tr>
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Carboidratos (g)
+									</td>
+									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
+										{value.carb}
+									</td>
+								</tr>
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Gorduras (g)
+									</td>
+									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
+										{value.fat}
+									</td>
+								</tr>
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Excluir
+									</td>
+									<td className="flex border border-neutral-800 w-1/2">
+										<EditDialog
+											foodData={value}
+											listFood={foodDay}
+											updateListFoodFunc={updateListFoodFunc}
+										/>
+									</td>
+								</tr>
+								<tr className="flex">
+									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
+										Editar
+									</td>
+									<td className="flex border border-neutral-800 w-1/2">
+										<TrashDialog
+											dataFood={value}
+											listFood={foodDay}
+											updateListFoodFunc={updateListFoodFunc}
+										/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					);
+				})}
+			</div>
 		</div>
 	);
 }

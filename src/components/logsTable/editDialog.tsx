@@ -1,3 +1,4 @@
+import { useMediaQuery } from "react-responsive";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -29,6 +30,7 @@ interface Inputs {
 }
 
 export function EditDialog({ foodData, listFood, updateListFoodFunc }: Prop) {
+	const isMaxMd = useMediaQuery({ query: "(max-width: 768px)" });
 	const [isOpen, setIsOpen] = useState(false);
 
 	const { register, handleSubmit, reset } = useForm<Inputs>({
@@ -71,13 +73,25 @@ export function EditDialog({ foodData, listFood, updateListFoodFunc }: Prop) {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<Button
-					className="cursor-pointer"
-					variant={"ghost"}
-					onClick={() => setIsOpen(true)}
-				>
-					<Edit className="size-5 text-green-500" />
-				</Button>
+				<div className={isMaxMd ? "w-full flex justify-center" : ""}>
+					{!isMaxMd && (
+						<Button
+							className="cursor-pointer"
+							variant={"ghost"}
+							onClick={() => setIsOpen(true)}
+						>
+							<Edit className="size-5 text-green-500" />
+						</Button>
+					)}
+					{isMaxMd && (
+						<button
+							className="cursor-pointer w-full flex items-center justify-center"
+							onClick={() => setIsOpen(true)}
+						>
+							<Edit className="size-4 text-green-500" />
+						</button>
+					)}
+				</div>
 			</DialogTrigger>
 			<DialogContent className="text-white">
 				<DialogHeader>

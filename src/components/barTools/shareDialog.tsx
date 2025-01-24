@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useEffect, useState } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -7,38 +7,62 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { QrCode, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { useQRCode } from "next-qrcode";
 import { Button } from "../ui/button";
 import toast from "react-hot-toast";
-import { Input } from "../ui/input";
-import { useEffect } from "react";
 import { getSmallUrl } from "@/http/getSmallUrl";
 
 export function ShareDialog() {
 	const { Canvas } = useQRCode();
-
-	const handleCopy = () => {
-		toast.success("Link copiado");
-	};
-
-	const handleChange = () => {
-		toast.success("Dados mudados");
-	};
+	const [isOpen, setIsOpen] = useState(false);
+	const [tinyUrl, setTinyUrl] = useState("Carregando...");
+	const [requestFailed, setIsRequestFailed] = useState(false);
 
 	useEffect(() => {
+		if (!isOpen) return;
+
 		const fn = async () => {
-			const url = await getSmallUrl("https://google.com");
-			console.log(url);
+			const objLs = {
+				food_saved: localStorage.getItem("food_saved"),
+				food_day: localStorage.getItem("food_day"),
+				limit_nutrients: localStorage.getItem("limit_nutrients"),
+				personal_data: localStorage.getItem("personal_data"),
+			};
+
+			const url = `https://caloriesday.vercel.app/shareDialog/?data=${encodeURIComponent(
+				JSON.stringify(objLs)
+			)}`;
+			const tinyUrl = await getSmallUrl(url);
+			if (tinyUrl === false) {
+				setIsRequestFailed(true);
+				return;
+			}
+			setTinyUrl(tinyUrl);
 		};
 
 		fn();
-	});
+	}, [isOpen]);
+
+	const handleCopy = () => {
+		if (tinyUrl === "Carregando..." || requestFailed) return;
+		navigator.clipboard
+			.writeText(tinyUrl)
+			.then(() => {
+				toast.success("Link copiado");
+			})
+			.catch(() => {
+				toast.error("O link não pode ser copiado");
+			});
+	};
 
 	return (
-		<Dialog>
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<div className="p-3 rounded-full bg-black/50 text-white cursor-pointer hover:bg-black/70">
+				<div
+					className="p-3 rounded-full bg-black/50 text-white cursor-pointer hover:bg-black/70"
+					onClick={() => setIsOpen(true)}
+				>
 					<Share2 />
 				</div>
 			</DialogTrigger>
@@ -49,27 +73,26 @@ export function ShareDialog() {
 					</DialogTitle>
 					<DialogDescription className="text-center">
 						Aqui você pode compartilhar seu histórico e seus dados
-						personalizados.
+						personalizados para usar em outro dispositivo.
 					</DialogDescription>
 				</DialogHeader>
-				<Tabs defaultValue="share" className="w-full">
-					<TabsList className="w-full">
-						<TabsTrigger value="share" className="w-1/2">
-							Compartilhe
-						</TabsTrigger>
-						<TabsTrigger value="change" className="w-1/2">
-							Ler Compartilhamento
-						</TabsTrigger>
-					</TabsList>
-					<TabsContent
-						value="share"
-						className="border border-neutral-700 p-2 rounded-md"
-						asChild
-					>
-						<div className="flex flex-col items-center justify-center gap-5 py-10">
-							<div className="bg-white w-max">
+				<div className="flex flex-col items-center justify-center gap-5 py-10 border border-neutral-700 p-2 rounded-md">
+					<div className="relative">
+						{tinyUrl === "Carregando..." && (
+							<div className="size-[200px] bg-black/50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+						)}
+						<div className="bg-white w-max">
+							{requestFailed && (
+								<div className="size-[200px] bg-neutral-200 flex items-center justify-center cursor-pointer">
+									<p className="text-center text-neutral-900 font-medium text-lg">
+										Algo deu errado <br /> ≡(▔﹏▔)≡
+									</p>
+								</div>
+							)}
+
+							{!requestFailed && (
 								<Canvas
-									text={"https://github.com/bunlong/next-qrcode"}
+									text={tinyUrl}
 									options={{
 										errorCorrectionLevel: "M",
 										margin: 1,
@@ -80,34 +103,17 @@ export function ShareDialog() {
 										},
 									}}
 								/>
-							</div>
-							<div className="flex gap-1 w-full px-3">
-								<output className="w-full border border-neutral-700 px-2 py-1 rounded-sm text-neutral-100 cursor-pointer hover:bg-black/30">
-									https://github.com/bunlong/next-qrcode
-								</output>
-								<Button onClick={handleCopy}>Copiar</Button>
-							</div>
+							)}
 						</div>
-					</TabsContent>
-					<TabsContent
-						value="change"
-						className="border border-neutral-700 p-2 rounded-md"
-						asChild
-					>
-						<div className="flex flex-col items-center justify-center gap-5 py-10">
-							<div className="size-[200px] flex flex-col items-center justify-center text-neutral-400 hover:bg-neutral-900 transition-colors rounded-md shadow-sm shadow-neutral-800">
-								<QrCode className="size-1/4" />
-								<p className="text-xs text-center">
-									Clique aqui para ler o Qr Code...
-								</p>
-							</div>
-							<div className="flex gap-1 w-full px-3">
-								<Input className="border border-neutral-700 px-2 py-1 rounded-sm text-neutral-100 cursor-pointer hover:bg-black/30" />
-								<Button onClick={handleChange}>Pronto</Button>
-							</div>
-						</div>
-					</TabsContent>
-				</Tabs>
+					</div>
+					<div className="flex gap-1 w-full px-3">
+						<output className="w-full border border-neutral-700 px-2 py-1 rounded-sm text-neutral-100 cursor-pointer hover:bg-black/30">
+							{requestFailed && "Não conseguimos pegar seu link"}
+							{!requestFailed && tinyUrl}
+						</output>
+						<Button onClick={handleCopy}>Copiar</Button>
+					</div>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);

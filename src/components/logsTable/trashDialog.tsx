@@ -1,3 +1,4 @@
+import { useMediaQuery } from "react-responsive";
 import {
 	Table,
 	TableBody,
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export function TrashDialog({ dataFood, updateListFoodFunc, listFood }: Props) {
+	const isMaxMd = useMediaQuery({ query: "(max-width: 768px)" });
 	const handleDelete = () => {
 		localStorage.setItem(
 			"food_day",
@@ -41,9 +43,18 @@ export function TrashDialog({ dataFood, updateListFoodFunc, listFood }: Props) {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<Button variant={"ghost"}>
-					<Trash className="size-5 text-red-500" />
-				</Button>
+				<div className={isMaxMd ? "w-full flex justify-center" : ""}>
+					{!isMaxMd && (
+						<Button variant={"ghost"} className="cursor-pointer">
+							<Trash className="size-5 text-red-500" />
+						</Button>
+					)}
+					{isMaxMd && (
+						<button className="cursor-pointer w-full flex items-center justify-center">
+							<Trash className="size-4 text-red-500" />
+						</button>
+					)}
+				</div>
 			</AlertDialogTrigger>
 			<AlertDialogContent className="text-white">
 				<AlertDialogHeader>

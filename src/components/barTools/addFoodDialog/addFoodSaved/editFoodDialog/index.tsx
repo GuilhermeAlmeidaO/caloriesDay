@@ -8,7 +8,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { FoodDayType } from "../../..";
+import { FoodDayType } from "../../../..";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
@@ -65,8 +65,8 @@ export function EditFoodDialog({
 			(value) => value.id !== foodData.id
 		);
 		localStorage.setItem(
-			"foods_saved",
-			JSON.stringify([...listFoodSavedWithoutFoodToUpdate, { ...values, id }])
+			"food_saved",
+			JSON.stringify([{ ...values, id }, ...listFoodSavedWithoutFoodToUpdate])
 		);
 
 		updateListFoodSavedFunc();
@@ -151,16 +151,28 @@ export function EditFoodDialog({
 							onFocus={(e) => e.target.select()}
 						/>
 					</label>
-					<DialogFooter className="w-full flex justify-between col-span-2">
-						<TrashDialog
-							updateListFoodSavedFunc={updateListFoodSavedFunc}
-							dataFoodSaved={foodData}
-							listFoodSaved={listFoodSaved}
-						/>
-						<div className="space-x-3">
-							<Button onClick={handleSubmit(submit)} type="button">
-								Salvar Mudanças
-							</Button>
+					<DialogFooter className="w-full col-span-2 max-md:flex max-md:justify-end max-md:space-x-0">
+						<div className="flex justify-between w-full max-md:hidden">
+							<TrashDialog
+								updateListFoodSavedFunc={updateListFoodSavedFunc}
+								dataFoodSaved={foodData}
+								listFoodSaved={listFoodSaved}
+								closePreviousDialog={handleClose}
+							/>
+							<div className="space-x-3">
+								<Button onClick={handleSubmit(submit)} type="button">
+									Salvar Mudanças
+								</Button>
+								<Button
+									variant={"destructive"}
+									onClick={handleClose}
+									type="button"
+								>
+									Sair
+								</Button>
+							</div>
+						</div>
+						<div className="md:hidden flex flex-col-reverse gap-2 w-full ml-0">
 							<Button
 								variant={"destructive"}
 								onClick={handleClose}
@@ -168,6 +180,21 @@ export function EditFoodDialog({
 							>
 								Sair
 							</Button>
+							<div className="w-full flex gap-2">
+								<Button
+									onClick={handleSubmit(submit)}
+									type="button"
+									className="w-1/2"
+								>
+									Salvar Mudanças
+								</Button>
+								<TrashDialog
+									updateListFoodSavedFunc={updateListFoodSavedFunc}
+									dataFoodSaved={foodData}
+									listFoodSaved={listFoodSaved}
+									closePreviousDialog={handleClose}
+								/>
+							</div>
 						</div>
 					</DialogFooter>
 				</form>
