@@ -11,7 +11,7 @@ export default function GetShare() {
 		const params = new URLSearchParams(window.location.search);
 		const jsonParam = params.get("data");
 		setQueryParams(jsonParam || "");
-		if ((jsonParam || "") === "") window.location.href = "/";
+		// if ((jsonParam || "") === "") window.location.href = "/";
 
 		const objLs = {
 			food_saved: localStorage.getItem("food_saved"),
@@ -28,7 +28,7 @@ export default function GetShare() {
 				localStorage.setItem(key, value as string);
 			});
 			console.log(parsedData);
-			window.location.href = "/";
+			// window.location.href = "/";
 		}
 	}, [isThereLs, queryParams]);
 
@@ -38,13 +38,13 @@ export default function GetShare() {
 			localStorage.setItem(key, value as string);
 		});
 		console.log(parsedData);
-		window.location.href = "/";
+		// window.location.href = "/";
 	};
 
 	return (
 		<div className="min-h-[100dvh] bg-neutral-950 text-white flex items-center justify-center">
-			<div className="border border-neutral-500 px-3 py-5 rounded-sm w-1/3 space-y-3">
-				<div>
+			<div className="border border-neutral-500 px-3 py-5 rounded-sm w-96 space-y-3">
+				<div className="flex items-center justify-center flex-col gap-2">
 					<h1 className="text-lg font-semibold text-center">
 						Você tem certeza?
 					</h1>
@@ -53,7 +53,7 @@ export default function GetShare() {
 						substituido pelos os novos dados
 					</p>
 				</div>
-				<div className="w-full flex gap-3 justify-end">
+				<div className="w-full flex gap-3 justify-center">
 					<Button onClick={handleConfirm}>Continuar</Button>
 					<Button
 						variant={"destructive"}

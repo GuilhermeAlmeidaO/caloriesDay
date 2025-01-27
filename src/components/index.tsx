@@ -50,7 +50,6 @@ export function Index() {
 		if (!localStorage.getItem("lastDay")) {
 			localStorage.setItem("lastDay", JSON.stringify(currentDay));
 		}
-
 		const lastDay = localStorage.getItem("lastDay") as string;
 		if (lastDay !== currentDay.toString()) {
 			localStorage.setItem("food_day", JSON.stringify([]));
@@ -82,7 +81,7 @@ export function Index() {
 											: ""}
 									</p>
 									<div className="w-20 border-[1px] cursor-pointer border-neutral-400 rounded-sm py-1 pl-2 pr-5 hover:bg-black/30">
-										{value[1].toFixed(2)}
+										{value[1]}
 									</div>
 								</div>
 							))

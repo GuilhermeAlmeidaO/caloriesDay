@@ -13,7 +13,7 @@ export function BarProgress({ nutrient, consumed, limit }: Props) {
 			<div className="flex items-center justify-between w-full text-lg">
 				<p>{nutrient}</p>
 				<p>
-					{consumed.toFixed(1)} / {limit.toFixed(2)}{" "}
+					{consumed.toFixed(1)} / {limit}{" "}
 					{nutrient === "Calorias" ? "kcal" : "g"}
 				</p>
 			</div>

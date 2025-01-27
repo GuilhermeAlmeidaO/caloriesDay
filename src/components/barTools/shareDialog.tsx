@@ -39,6 +39,7 @@ export function ShareDialog() {
 				return;
 			}
 			setTinyUrl(tinyUrl);
+			console.log(encodeURIComponent(JSON.stringify(objLs)));
 		};
 
 		fn();

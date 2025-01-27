@@ -29,11 +29,12 @@ export function StartModule() {
 			"limit_nutrients",
 			JSON.stringify({
 				kcal: tmb,
-				protein: 2.2 * values.kg,
-				carb: 4.4 * values.kg,
-				fat: 1 * values.kg,
+				protein: Number((2.2 * values.kg).toFixed(2)),
+				carb: Number((4.4 * values.kg).toFixed(2)),
+				fat: Number((1 * values.kg).toFixed(2)),
 			})
 		);
+
 		location.reload();
 	};
 
@@ -48,7 +49,7 @@ export function StartModule() {
 								id={"idInputKg"}
 								className="rounded-l-md border-zinc-500 py-5 w-72"
 								type="number"
-								{...register("kg", { required: true })}
+								{...register("kg", { required: true, valueAsNumber: true })}
 							/>
 							<div className="font-semibold rounded-r-md border-[1px] border-zinc-500 px-2 py-1 flex items-center justify-center text-sm w-14">
 								kg
@@ -62,7 +63,7 @@ export function StartModule() {
 								id={"idInputCm"}
 								type="number"
 								className="rounded-l-md border-zinc-500 py-5 w-72"
-								{...register("cm", { required: true })}
+								{...register("cm", { required: true, valueAsNumber: true })}
 							/>
 							<div className="font-semibold rounded-r-md border-[1px] border-zinc-500 px-2 py-1 flex items-center justify-center text-sm w-14">
 								cm
@@ -76,7 +77,7 @@ export function StartModule() {
 								id={"idInputAge"}
 								type="number"
 								className="rounded-l-md border-zinc-500 py-5 w-72"
-								{...register("age", { required: true })}
+								{...register("age", { required: true, valueAsNumber: true })}
 							/>
 							<div className="font-semibold rounded-r-md border-[1px] border-zinc-500 px-2 py-1 flex items-center justify-center text-sm w-14">
 								anos
