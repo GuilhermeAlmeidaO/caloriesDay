@@ -54,6 +54,7 @@ export function Index() {
 		if (lastDay !== currentDay.toString()) {
 			localStorage.setItem("food_day", JSON.stringify([]));
 		}
+		localStorage.setItem("lastDay", JSON.stringify(currentDay));
 	}, []);
 
 	const handleChangeFoodDay = () => {
