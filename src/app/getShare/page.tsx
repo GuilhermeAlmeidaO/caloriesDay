@@ -11,7 +11,7 @@ export default function GetShare() {
 		const params = new URLSearchParams(window.location.search);
 		const jsonParam = params.get("data");
 		setQueryParams(jsonParam || "");
-		// if ((jsonParam || "") === "") window.location.href = "/";
+		if ((jsonParam || "") === "") window.location.href = "/";
 
 		const objLs = {
 			food_saved: localStorage.getItem("food_saved"),
@@ -28,7 +28,7 @@ export default function GetShare() {
 				localStorage.setItem(key, value as string);
 			});
 			console.log(parsedData);
-			// window.location.href = "/";
+			window.location.href = "/";
 		}
 	}, [isThereLs, queryParams]);
 
@@ -38,7 +38,7 @@ export default function GetShare() {
 			localStorage.setItem(key, value as string);
 		});
 		console.log(parsedData);
-		// window.location.href = "/";
+		window.location.href = "/";
 	};
 
 	return (

@@ -30,7 +30,7 @@ export function ShareDialog() {
 				personal_data: localStorage.getItem("personal_data"),
 			};
 
-			const url = `https://caloriesday.vercel.app/shareDialog/?data=${encodeURIComponent(
+			const url = `https://caloriesday.vercel.app/getShare/?data=${encodeURIComponent(
 				JSON.stringify(objLs)
 			)}`;
 			const tinyUrl = await getSmallUrl(url);
