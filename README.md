@@ -1,33 +1,29 @@
 # Calories Day
 
-In this app you can record the nutrients of your meals. You can write the calories, fat, carbs and protein each food that you eat, and with your personal data like your height, weight and age, and the app will do the calculation.
+This app allow you record the nutrients of your meals. "You can log the calories, fat, carbs, and protein of each food you eat. With your personal data, such as your height, weight, and age, the app will perform the calculations.
 
-[image app]
+![image](https://github.com/user-attachments/assets/98368cd9-f05b-4fcd-801c-ad288fd25daf)
 
 ## Demonstration
 
-When you access the app for the first time, you must write your height, weight and age, with this, the app can make the calculate how many of each nutrient you can consume per day.
+When you access the app for the first time, you must input your height, weight, and age. With this information, the app will calculate how much of each nutrient you can consume per day.
 
-[form image]
+![image](https://github.com/user-attachments/assets/ad20f529-48a7-40dd-9def-3949f609becd)
 
-After you write your data, you'll can see a table and some progress bar if you aren't using it on a small screen and a toolbar at the bottom, with three buttons: the settings, add food and share your history and data.
-
+After entering your data, you will see a table and progress bars (if you are not using a small screen), as well as a toolbar at the bottom with three buttons: settings, add food, and share your history and data.
 ## Learnings
 
-How the app doesn't has a database that unable user create a account, i had to save the datas on localStorage, and this creates another problem: **_how the user can see your history in other device?_**
+Since the app doesn't have a database that allows users to create an account, I had to save the data in localStorage. This created another problem: ***how can the user view their history on another device?***
 
-And i had a idea to create a link with the localstorage of the current device, but the link is too big, and to fix this, the app make a post to TinyURL that reduce the url and create a qrCode.
-
+I came up with the idea of creating a link containing the localStorage data from the current device. However, the link was too long. To fix this, the app makes a POST request to TinyURL, which shortens the URL and generates a QR code.
 ## Installation
 
 To install the app is simple, just you need:
-
 ```bash
 npm clone https://github.com/GuilhermeAlmeidaO/caloriesDay.git
 npm i
 npm run dev
 ```
-
 ## Stacks used
 
 ![](https://skillicons.dev/icons?i=next,tailwind,npm,vercel,ts)
