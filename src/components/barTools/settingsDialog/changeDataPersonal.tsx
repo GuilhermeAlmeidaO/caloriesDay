@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
 import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-	DialogFooter,
-} from "@/components/ui/dialog";
-import { useState } from "react";
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import {
 	Table,
 	TableBody,
@@ -19,10 +20,6 @@ import {
 } from "@/components/ui/table";
 
 export function ChangeDataPersonal() {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const handleClose = () => setIsOpen(false);
-
 	const changeData = () => {
 		localStorage.removeItem("personal_data");
 		location.reload();
@@ -40,20 +37,19 @@ export function ChangeDataPersonal() {
 	);
 
 	return (
-		<Dialog open={isOpen} onOpenChange={setIsOpen}>
-			<DialogTrigger asChild>
+		<AlertDialog>
+			<AlertDialogTrigger asChild>
 				<Button
 					className="bg-black/50 text-white cursor-pointer hover:bg-black/70"
 					variant={"outline"}
-					onClick={() => setIsOpen(true)}
 				>
 					Mudar dados
 				</Button>
-			</DialogTrigger>
-			<DialogContent className="text-white">
-				<DialogHeader>
-					<DialogTitle>Você quer mudar seus dados?</DialogTitle>
-					<DialogDescription className="indent-[2px]" asChild>
+			</AlertDialogTrigger>
+			<AlertDialogContent className="text-white">
+				<AlertDialogHeader>
+					<AlertDialogTitle>Você quer mudar seus dados?</AlertDialogTitle>
+					<AlertDialogDescription className="indent-[2px]" asChild>
 						<div className="flex flex-col gap-2">
 							<p>
 								Os registro de hoje não vão desaparecer, mas vão modificar com
@@ -78,15 +74,13 @@ export function ChangeDataPersonal() {
 								</TableBody>
 							</Table>
 						</div>
-					</DialogDescription>
-				</DialogHeader>
-				<DialogFooter className="flex justify-end w-full">
-					<Button onClick={changeData}>Mudar</Button>
-					<Button variant={"destructive"} onClick={handleClose}>
-						Cancelar
-					</Button>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+					</AlertDialogDescription>
+				</AlertDialogHeader>
+				<AlertDialogFooter className="flex justify-end w-full">
+					<AlertDialogAction onClick={changeData}>Mudar</AlertDialogAction>
+					<AlertDialogCancel>Cancelar</AlertDialogCancel>
+				</AlertDialogFooter>
+			</AlertDialogContent>
+		</AlertDialog>
 	);
 }

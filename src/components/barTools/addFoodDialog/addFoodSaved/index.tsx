@@ -40,6 +40,7 @@ export function AddFoodSaved({
 
 	const handleAddFood = (food: FoodDayType) => {
 		const currentLs = JSON.parse(localStorage.getItem("food_day") || "[]");
+		food.id = new Date().getTime();
 		localStorage.setItem("food_day", JSON.stringify([...currentLs, food]));
 		toast.success("Comida Adicionada");
 		updateListFoodFunc();

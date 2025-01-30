@@ -48,6 +48,14 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 
 	useEffect(() => {
 		if (!isOpen) reset();
+		if (isOpen) {
+			setTimeout(() => {
+				void (
+					document.activeElement instanceof HTMLElement &&
+					document.activeElement.blur()
+				);
+			}, 0);
+		}
 	}, [isOpen, reset]);
 
 	const [foodSaved, setFoodSaved] = useState<FoodDayType[]>([]);
@@ -133,7 +141,6 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							className="rounded-sm"
 							{...register("name", { required: true })}
 							autoComplete="off"
-							onFocus={(e) => e.target.select()}
 						/>
 					</label>
 					<label
@@ -146,7 +153,6 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							className="rounded-sm"
 							type="number"
 							{...register("kcal", { required: true })}
-							onFocus={(e) => e.target.select()}
 						/>
 					</label>
 					<label
@@ -159,7 +165,6 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							className="rounded-sm"
 							type="number"
 							{...register("carb", { required: true })}
-							onFocus={(e) => e.target.select()}
 						/>
 					</label>
 					<label
@@ -172,7 +177,6 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							className="rounded-sm"
 							type="number"
 							{...register("protein", { required: true })}
-							onFocus={(e) => e.target.select()}
 						/>
 					</label>
 					<label
@@ -185,7 +189,6 @@ export function AddFoodDialog({ updateListFoodFunc }: Props) {
 							className="rounded-sm"
 							type="number"
 							{...register("fat", { required: true })}
-							onFocus={(e) => e.target.select()}
 						/>
 					</label>
 					<DialogFooter className="w-full col-span-2 flex max-sm:justify-end">

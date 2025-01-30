@@ -88,9 +88,9 @@ export function LogsTable({
 					<TableRow className="bg-neutral-800/25">
 						<TableHead className="py-4 font-bold">Item comida</TableHead>
 						<TableHead className="py-4 font-bold">Calorias</TableHead>
-						<TableHead className="py-4 font-bold">Proteinas (g)</TableHead>
-						<TableHead className="py-4 font-bold">Carboidratos (g)</TableHead>
-						<TableHead className="py-4 font-bold">Gorduras (g)</TableHead>
+						<TableHead className="py-4 font-bold">Proteinas g</TableHead>
+						<TableHead className="py-4 font-bold">Carboidratos g</TableHead>
+						<TableHead className="py-4 font-bold">Gorduras g</TableHead>
 						<TableHead className="py-4 font-bold text-center">Editar</TableHead>
 						<TableHead className="py-4 font-bold text-center">
 							Excluir
@@ -171,31 +171,31 @@ export function LogsTable({
 										Calorias
 									</td>
 									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
-										{value.kcal}
+										{value.kcal} kcal
 									</td>
 								</tr>
 								<tr className="flex">
 									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
-										Proteinas (g)
+										Proteinas g
 									</td>
 									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
-										{value.protein}
+										{value.protein} g
 									</td>
 								</tr>
 								<tr className="flex">
 									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
-										Carboidratos (g)
+										Carboidratos g
 									</td>
 									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
-										{value.carb}
+										{value.carb} g
 									</td>
 								</tr>
 								<tr className="flex">
 									<td className="font-bold flex items-center w-1/2 bg-neutral-900 py-2 px-1">
-										Gorduras (g)
+										Gorduras g
 									</td>
 									<td className="flex items-center border border-neutral-800 w-1/2 px-2">
-										{value.fat}
+										{value.fat} g
 									</td>
 								</tr>
 								<tr className="flex">
