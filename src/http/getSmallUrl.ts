@@ -3,7 +3,7 @@ export async function getSmallUrl(url: string): Promise<string | false> {
 		const response = await fetch("https://api.tinyurl.com/create", {
 			method: "POST",
 			headers: {
-				Authorization: `Bearer dKzScQBycmiqvaR6u0KtxuTN7VVYgSShPXAZGxv0ldvT8SjLu7V0910P2Xkh`,
+				Authorization: `Bearer ${process.env.API_TOKEN}`,
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
