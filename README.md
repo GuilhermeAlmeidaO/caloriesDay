@@ -16,6 +16,9 @@ After entering your data, you will see a table and progress bars (if you are not
 Since the app doesn't have a database that allows users to create an account, I had to save the data in localStorage. This created another problem: ***how can the user view their history on another device?***
 
 I came up with the idea of creating a link containing the localStorage data from the current device. However, the link was too long. To fix this, the app makes a POST request to TinyURL, which shortens the URL and generates a QR code.
+
+![image](https://github.com/user-attachments/assets/63cf0bb2-4cae-408e-8127-f0cfb566fc6a)
+
 ## Installation
 
 To install the app is simple, just you need:
