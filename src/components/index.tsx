@@ -42,10 +42,6 @@ export function Index() {
 	});
 
 	useEffect(() => {
-		const ls = localStorage.getItem("limit_nutrients");
-		setLimitNutrients(JSON.parse(ls!));
-		setFoodDay(JSON.parse(localStorage.getItem("food_day") || "[{}]"));
-
 		const currentDay = new Date().getDate();
 		if (!localStorage.getItem("lastDay")) {
 			localStorage.setItem("lastDay", JSON.stringify(currentDay));
@@ -55,6 +51,10 @@ export function Index() {
 			localStorage.setItem("food_day", JSON.stringify([]));
 		}
 		localStorage.setItem("lastDay", JSON.stringify(currentDay));
+
+		const ls = localStorage.getItem("limit_nutrients");
+		setLimitNutrients(JSON.parse(ls!));
+		setFoodDay(JSON.parse(localStorage.getItem("food_day") || "[{}]"));
 	}, []);
 
 	const handleChangeFoodDay = () => {
